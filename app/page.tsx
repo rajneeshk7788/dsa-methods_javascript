@@ -1,103 +1,20 @@
-import Image from "next/image";
+'use client'
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <main className="flex flex-col h-full w-full sticky overflow-hidden bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 ">
+      <div className="flex flex-col items-center justify-center h-full w-full flex-1 overflow-auto">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white text-center">
+          Welcome to the JavaScript Algorithms Playground
+        </h1>
+        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 text-center ">
+          um veniam incidunt fuga consequatur! Saepe perspiciatis, alias iure error neque perferendis? Repudiandae minus fugit velit natus, dolores similique aspernatur ab, alias qui ullam illum necessitatibus sit aut, cupiditate placeat! Quo ut numquam minima ex quisquam illo blanditiis tenetur corrupti, suscipit eum odit voluptatibus, cumque quas nesciunt. Maxime nobis deserunt pariatur tempora eveniet officia ut ex. Distinctio praesentium laborum laboriosam commodi sapiente vitae, doloribus soluta accusantium minus cum quo incidunt? Porro possimus, aliquid officia magnam consequatur earum beatae cupiditate. Illum asperiores repellat expedita.
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta in accusamus ipsa cum aperiam architecto eius. Dicta itaque mollitia aut nostrum amet quaerat dolorum alias voluptates ipsa quos eius laudantium voluptas quia iusto officiis pariatur, dolore ducimus est. Enim maiores iure nulla suscipit voluptatem quibusdam dolorem, laudantium facere animi aspernatur. Doloribus iusto culpa fuga qui sequi eos laborum, quae dolores esse iste? In quaerat deserunt, minus vitae natus repellat nobis iste asperiores aliquid voluptate! Veritatis dolorum possimus inventore minus cupiditate? Dolores ratione nostrum fuga voluptates corrupti dignissimos accusantium, molestias voluptatem, mollitia sunt animi magni. Quam aliquid nemo veniam quaerat natus repudiandae in, cum, exercitationem, tempore facere corporis porro. Dolore laboriosam ex id. Corporis laudantium vero nulla quae, ut sunt. Cumque, recusandae dolore. Veritatis et ducimus ipsum officiis obcaecati consequatur, iusto maiores illo error quasi quisquam dicta voluptates quos impedit aut tempore suscipit eum ipsa, alias ad magnam ratione atque? Quo exercitationem, corrupti voluptatem id dolore maiores soluta, quam porro ad saepe vero inventore minus nostrum quibusdam ratione animi dolor eum tempore dolorum facilis, non consequatur esse. Consequuntur provident sapiente sequi inventore, perferendis quo rerum excepturi nam voluptatum ex totam quidem tempore doloremque iste ad ipsum quos quibusdam dolore. Numquam nihil voluptatibus debitis maxime sapiente similique dicta omnis distinctio, cumque, voluptates non praesentium aliquam repudiandae reiciendis cum, vero sunt amet. Deleniti sed recusandae quis, quam labore sequi doloremque, dolore earum quasi excepturi vitae fuga ad suscipit itaque accusantium deserunt beatae veritatis explicabo voluptas! Iusto non vitae, autem perspiciatis recusandae earum nesciunt distinctio? Quasi ex quis voluptates ad dolores soluta tenetur ipsum. Perspiciatis vitae aliquam illo quaerat libero, officiis itaque quis, ipsa optio illum soluta sint velit facere quibusdam quo in ipsum cupiditate consectetur esse! Numquam recusandae ad optio aliquam, non pariatur natus error animi modi fugit exercitationem ipsam temporibus neque ab.
+        </p>
+        <p className="mt-2 text-lg text-gray-600 dark:text-gray-400 text-center ">
+          Click on the sidebar to navigate through different problems and solutions.
+        </p>
+      </div>
+    </main>
   );
 }
