@@ -26,14 +26,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { usePathname } from 'next/navigation';
 
 // Define navigation links
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/notes', label: 'Notes' },
   { href: '/components/About', label: 'About' },
-  { href: '/components/Services', label: 'Services' },
-  { href: '/components/Contact', label: 'Contact' }
+  { href: '/components/Contact', label: 'Contact' },
+  { href: '/components/login', label: 'Login' },
+  { href: '/components/signup', label: 'Signup' }
 ];
 
 // Reusable Add Method Form
@@ -72,6 +74,8 @@ const AddMethodForm = ({ newMethod, setNewMethod, onSubmit }: any) => (
 const Navbar = () => {
   const [newMethod, setNewMethod] = useState({ title: '', url: '' });
   const dispatch = useDispatch();
+   const pathname = usePathname();
+    const isNotesPage = pathname === '/notes';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,7 +92,7 @@ const Navbar = () => {
     <nav className="bg-white/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200/40 dark:border-gray-600/40 shadow-sm sticky w-full">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center space-x-3 rtl:space-x-reverse">
-          <SidebarTrigger />
+         {isNotesPage&& <SidebarTrigger />}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
             Java Script
           </Link>
@@ -101,14 +105,14 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-500 transition-colors duration-200"
+                className={`transition-colors duration-200 ${pathname === link.href ? 'text-blue-600 dark:text-blue-500 font-semibold' : 'text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-500'}`}
               >
                 {link.label}
               </Link>
             ))}
           </div>
           {/* Add Method Dialog */}
-          <Dialog>
+          {isNotesPage && <Dialog>
             <DialogTrigger asChild>
               <Button>Add Method</Button>
             </DialogTrigger>
@@ -121,7 +125,7 @@ const Navbar = () => {
               </DialogHeader>
               <AddMethodForm newMethod={newMethod} setNewMethod={setNewMethod} onSubmit={handleSubmit} />
             </DialogContent>
-          </Dialog>
+          </Dialog>}
           <ModeToggle />
 
           {/* Mobile Menu */}
@@ -140,7 +144,7 @@ const Navbar = () => {
                       <Link
                         key={link.href}
                         href={link.href}
-                        className="text-lg text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-500 transition-colors duration-200"
+                        className={`text-lg transition-colors duration-200 ${pathname === link.href ? 'text-blue-600 dark:text-blue-500 font-semibold' : 'text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-500'}`}
                       >
                         {link.label}
                       </Link>
