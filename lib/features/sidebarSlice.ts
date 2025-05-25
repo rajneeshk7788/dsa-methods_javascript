@@ -4,6 +4,7 @@ export interface SidebarItem {
   title: string;
   url: string;
   icon: string;
+  details: string;
 }
 
 interface SidebarState {
@@ -12,35 +13,35 @@ interface SidebarState {
 
 const initialState: SidebarState = {
   items: [
-    { title: "Palindrome - Method 1", url: "/palindrome-1", icon: "👉" },
-    { title: "Palindrome - Method 2", url: "/palindrome-2", icon: "👉" },
-    { title: "Fibonacci - Method 1", url: "/fibonacci-1", icon: "👉" },
-    { title: "Fibonacci - Method 2", url: "/fibonacci-2", icon: "👉" },
-    { title: "Merge Arrays - Method 1", url: "/merge-arrays-1", icon: "👉" },
-    { title: "Merge Arrays - Method 2", url: "/merge-arrays-2", icon: "👉" },
-    { title: "Binary Search - Iterative", url: "/binary-search-iterative", icon: "👉" },
-    { title: "Binary Search - Recursive", url: "/binary-search-recursive", icon: "👉" },
-    { title: "Factorial - Recursive", url: "/factorial-recursive", icon: "👉" },
-    { title: "Factorial - Iterative", url: "/factorial-iterative", icon: "👉" },
-    { title: "Reverse String - Method 1", url: "/reverse-string-1", icon: "👉" },
-    { title: "Reverse String - Method 2", url: "/reverse-string-2", icon: "👉" },
-    { title: "Sort Array - Bubble", url: "/sort-bubble", icon: "👉" },
-    { title: "Sort Array - Quick", url: "/sort-quick", icon: "👉" },
-    { title: "Sort Array - Merge", url: "/sort-merge", icon: "👉" },
-    { title: "Prime Check - Method 1", url: "/prime-check-1", icon: "👉" },
-    { title: "Prime Check - Method 2", url: "/prime-check-2", icon: "👉" },
-    { title: "GCD - Euclidean", url: "/gcd-euclidean", icon: "👉" },
-    { title: "GCD - Brute Force", url: "/gcd-brute", icon: "👉" },
-    { title: "LCM - Using GCD", url: "/lcm-gcd", icon: "👉" },
-    { title: "LCM - Iterative", url: "/lcm-iterative", icon: "👉" },
-    { title: "Anagram Check - Sort", url: "/anagram-sort", icon: "👉" },
-    { title: "Anagram Check - Count", url: "/anagram-count", icon: "👉" },
-    { title: "Matrix Transpose", url: "/matrix-transpose", icon: "👉" },
-    { title: "Matrix Rotation", url: "/matrix-rotation", icon: "👉" },
-    { title: "Sum of Digits", url: "/sum-of-digits", icon: "👉" },
-    { title: "Armstrong Number", url: "/armstrong-number", icon: "👉" },
-    { title: "String Compression", url: "/string-compression", icon: "👉" },
-    { title: "Find Duplicates", url: "/find-duplicates", icon: "👉" },
+    { title: "Palindrome - Method 1", url: "/palindrome-1", icon: "👉", details: "Details for Palindrome - Method 1" },
+    { title: "Palindrome - Method 2", url: "/palindrome-2", icon: "👉", details: "Details for Palindrome - Method 2" },
+    { title: "Fibonacci - Method 1", url: "/fibonacci-1", icon: "👉", details: "Details for Fibonacci - Method 1" },
+    { title: "Fibonacci - Method 2", url: "/fibonacci-2", icon: "👉", details: "Details for Fibonacci - Method 2" },
+    { title: "Merge Arrays - Method 1", url: "/merge-arrays-1", icon: "👉", details: "Details for Merge Arrays - Method 1" },
+    { title: "Merge Arrays - Method 2", url: "/merge-arrays-2", icon: "👉", details: "Details for Merge Arrays - Method 2" },
+    { title: "Binary Search - Iterative", url: "/binary-search-iterative", icon: "👉", details: "Details for Binary Search - Iterative" },
+    { title: "Binary Search - Recursive", url: "/binary-search-recursive", icon: "👉", details: "Details for Binary Search - Recursive" },
+    { title: "Factorial - Recursive", url: "/factorial-recursive", icon: "👉", details: "Details for Factorial - Recursive" },
+    { title: "Factorial - Iterative", url: "/factorial-iterative", icon: "👉", details: "Details for Factorial - Iterative" },
+    { title: "Reverse String - Method 1", url: "/reverse-string-1", icon: "👉", details: "Details for Reverse String - Method 1" },
+    { title: "Reverse String - Method 2", url: "/reverse-string-2", icon: "👉", details: "Details for Reverse String - Method 2" },
+    { title: "Sort Array - Bubble", url: "/sort-bubble", icon: "👉", details: "Details for Sort Array - Bubble" },
+    { title: "Sort Array - Quick", url: "/sort-quick", icon: "👉", details: "Details for Sort Array - Quick" },
+    { title: "Sort Array - Merge", url: "/sort-merge", icon: "👉", details: "Details for Sort Array - Merge" },
+    { title: "Prime Check - Method 1", url: "/prime-check-1", icon: "👉", details: "Details for Prime Check - Method 1" },
+    { title: "Prime Check - Method 2", url: "/prime-check-2", icon: "👉", details: "Details for Prime Check - Method 2" },
+    { title: "GCD - Euclidean", url: "/gcd-euclidean", icon: "👉", details: "Details for GCD - Euclidean" },
+    { title: "GCD - Brute Force", url: "/gcd-brute", icon: "👉", details: "Details for GCD - Brute Force" },
+    { title: "LCM - Using GCD", url: "/lcm-gcd", icon: "👉", details: "Details for LCM - Using GCD" },
+    { title: "LCM - Iterative", url: "/lcm-iterative", icon: "👉", details: "Details for LCM - Iterative" },
+    { title: "Anagram Check - Sort", url: "/anagram-sort", icon: "👉", details: "Details for Anagram Check - Sort" },
+    { title: "Anagram Check - Count", url: "/anagram-count", icon: "👉", details: "Details for Anagram Check - Count" },
+    { title: "Matrix Transpose", url: "/matrix-transpose", icon: "👉", details: "Details for Matrix Transpose" },
+    { title: "Matrix Rotation", url: "/matrix-rotation", icon: "👉", details: "Details for Matrix Rotation" },
+    { title: "Sum of Digits", url: "/sum-of-digits", icon: "👉", details: "Details for Sum of Digits" },
+    { title: "Armstrong Number", url: "/armstrong-number", icon: "👉", details: "Details for Armstrong Number" },
+    { title: "String Compression", url: "/string-compression", icon: "👉", details: "Details for String Compression" },
+    { title: "Find Duplicates", url: "/find-duplicates", icon: "👉", details: "Details for Find Duplicates" },
   ],
 };
 
