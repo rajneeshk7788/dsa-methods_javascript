@@ -26,13 +26,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+// API base URL
+const API_BASE_URL = "http://localhost:4000";
+
 // Define the Zod schema for the signup form
 const signupFormSchema = z.object({
   fullName: z.string().min(1, { message: "Full Name is required." }),
   username: z.string().min(2, { message: "Username must be at least 2 characters." }),
   email: z.string().email({ message: "Invalid email address." }),
   address: z.string().min(1, { message: "Address is required." }),
-  phoneNumber: z.string().min(10, { message: "Phone Number must be at least 10 digits." }), 
+  phone: z.string().min(10, { message: "Phone Number must be at least 10 digits." }), 
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
   confirmPassword: z.string().min(6, { message: "Confirm Password must be at least 6 characters." }),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -42,6 +45,8 @@ const signupFormSchema = z.object({
 
 const SignupPage = () => {
   const [isVerificationDialogOpen, setIsVerificationDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Initialize the form with react-hook-form and zodResolver
   const form = useForm<z.infer<typeof signupFormSchema>>({
@@ -51,23 +56,58 @@ const SignupPage = () => {
       username: "",
       email: "",
       address: "",
-      phoneNumber: "",
+      phone: "",
       password: "",
       confirmPassword: "",
     },
   });
 
+  // Handle signup API call
+  const handleSignup = async (values: z.infer<typeof signupFormSchema>) => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/user/signup`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Success:", data);
+      setIsVerificationDialogOpen(true);
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError(error instanceof Error ? error.message : "An unexpected error occurred");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Define the onSubmit handler
-  function onSubmit(values: z.infer<typeof signupFormSchema>) {
-    console.log(values);
-    setIsVerificationDialogOpen(true);
+  async function onSubmit(values: z.infer<typeof signupFormSchema>) {
+    await handleSignup(values);
   }
 
   return (
     <main className="flex flex-col items-center justify-center h-full bg-gray-100 dark:bg-gray-900 p-4">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
         <h1 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-6">Sign Up</h1>
-        {/* Replace form element with Form component from react-hook-form */}
+        
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            {error}
+          </div>
+        )}
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Full Name Field */}
@@ -134,7 +174,7 @@ const SignupPage = () => {
             {/* Phone Number Field */}
              <FormField
               control={form.control}
-              name="phoneNumber"
+              name="phone"
               render={({ field }) => (
                 <FormItem className='flex w-full justify-between'>
                   <FormLabel className='w-1/2' >Phone Number</FormLabel>
@@ -176,7 +216,13 @@ const SignupPage = () => {
               )}
             />
 
-            <Button type="submit" className="w-full">Sign Up</Button>
+            <Button 
+              type="submit" 
+              className="w-full"
+              disabled={isLoading}
+            >
+              {isLoading ? "Signing up..." : "Sign Up"}
+            </Button>
           </form>
         </Form>
 
@@ -184,8 +230,7 @@ const SignupPage = () => {
           Already have an account? <Link href="/components/login" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-400">Login</Link>
         </p>
 
-        {/* Email Verification Dialog */}
-        {/* <Dialog open={isVerificationDialogOpen} onOpenChange={setIsVerificationDialogOpen}>
+        <Dialog open={isVerificationDialogOpen} onOpenChange={setIsVerificationDialogOpen}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Email Verification</DialogTitle>
@@ -194,7 +239,7 @@ const SignupPage = () => {
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
-        </Dialog> */}
+        </Dialog>
       </div>
     </main>
   );
