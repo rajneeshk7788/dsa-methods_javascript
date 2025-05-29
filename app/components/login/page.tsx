@@ -42,11 +42,34 @@ const LoginPage = () => {
   });
 
   // Define the onSubmit handler
-  function onSubmit(values: z.infer<typeof loginFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log('Login submitted', values);
-    // Handle login logic here
+  async function onSubmit(values: z.infer<typeof loginFormSchema>) {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Handle successful login
+      console.log('Login successful', data);
+      
+      // Redirect to home page after successful login
+      
+    } catch (error) {
+      console.error('Login error:', error);
+      // TODO: Add your error handling logic here
+      // For example:
+      // - Show error message to user
+      // - Update form state
+    }
   }
 
   return (

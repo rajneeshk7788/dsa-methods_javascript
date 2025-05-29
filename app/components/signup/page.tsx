@@ -93,9 +93,9 @@ const SignupPage = () => {
   };
 
   // Define the onSubmit handler
-  async function onSubmit(values: z.infer<typeof signupFormSchema>) {
+  const onSubmit = async (values: z.infer<typeof signupFormSchema>) => {
     await handleSignup(values);
-  }
+  };
 
   return (
     <main className="flex flex-col items-center justify-center h-full bg-gray-100 dark:bg-gray-900 p-4">
