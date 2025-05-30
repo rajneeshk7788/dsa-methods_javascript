@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '@/lib/features/sidebarSlice';
+import { useAuth } from '@/app/context/AuthContext';
 
 import {
   Sheet,
@@ -29,13 +30,17 @@ import { Label } from "@/components/ui/label";
 import { usePathname } from 'next/navigation';
 
 // Define navigation links
-const navLinks = [
+const publicLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/components/login', label: 'Login' },
+  { href: '/components/signup', label: 'Signup' }
+];
+
+const privateLinks = [
   { href: '/', label: 'Home' },
   { href: '/notes', label: 'Notes' },
   { href: '/components/About', label: 'About' },
-  { href: '/components/Contact', label: 'Contact' },
-  { href: '/components/login', label: 'Login' },
-  { href: '/components/signup', label: 'Signup' }
+  { href: '/components/Contact', label: 'Contact' }
 ];
 
 // Reusable Add Method Form
@@ -74,8 +79,9 @@ const AddMethodForm = ({ newMethod, setNewMethod, onSubmit }: any) => (
 const Navbar = () => {
   const [newMethod, setNewMethod] = useState({ title: '', url: '' });
   const dispatch = useDispatch();
-   const pathname = usePathname();
-    const isNotesPage = pathname === '/notes';
+  const pathname = usePathname();
+  const isNotesPage = pathname === '/notes';
+  const { isAuthenticated, logout } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,11 +94,13 @@ const Navbar = () => {
     setNewMethod({ title: '', url: '' });
   };
 
+  const navLinks = isAuthenticated ? privateLinks : publicLinks;
+
   return (
     <nav className="bg-white/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200/40 dark:border-gray-600/40 shadow-sm sticky w-full">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center space-x-3 rtl:space-x-reverse">
-         {isNotesPage&& <SidebarTrigger />}
+          {isNotesPage && <SidebarTrigger />}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
             Java Script
           </Link>
@@ -110,22 +118,32 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated && (
+              <button
+                onClick={logout}
+                className="text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-500 transition-colors duration-200"
+              >
+                Logout
+              </button>
+            )}
           </div>
           {/* Add Method Dialog */}
-          {isNotesPage && <Dialog>
-            <DialogTrigger asChild>
-              <Button>Add Method</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Add New Method</DialogTitle>
-                <DialogDescription>
-                  Add a new method to the sidebar. Fill in the details below.
-                </DialogDescription>
-              </DialogHeader>
-              <AddMethodForm newMethod={newMethod} setNewMethod={setNewMethod} onSubmit={handleSubmit} />
-            </DialogContent>
-          </Dialog>}
+          {isNotesPage && isAuthenticated && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>Add Method</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Add New Method</DialogTitle>
+                  <DialogDescription>
+                    Add a new method to the sidebar. Fill in the details below.
+                  </DialogDescription>
+                </DialogHeader>
+                <AddMethodForm newMethod={newMethod} setNewMethod={setNewMethod} onSubmit={handleSubmit} />
+              </DialogContent>
+            </Dialog>
+          )}
           <ModeToggle />
 
           {/* Mobile Menu */}
@@ -149,22 +167,32 @@ const Navbar = () => {
                         {link.label}
                       </Link>
                     ))}
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="ghost" className="justify-start text-lg px-0">
-                          Add Method
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                          <DialogTitle>Add New Method</DialogTitle>
-                          <DialogDescription>
-                            Add a new method to the sidebar. Fill in the details below.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <AddMethodForm newMethod={newMethod} setNewMethod={setNewMethod} onSubmit={handleSubmit} />
-                      </DialogContent>
-                    </Dialog>
+                    {isAuthenticated && (
+                      <button
+                        onClick={logout}
+                        className="text-lg text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-500 transition-colors duration-200 text-left"
+                      >
+                        Logout
+                      </button>
+                    )}
+                    {isNotesPage && isAuthenticated && (
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant="ghost" className="justify-start text-lg px-0">
+                            Add Method
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                          <DialogHeader>
+                            <DialogTitle>Add New Method</DialogTitle>
+                            <DialogDescription>
+                              Add a new method to the sidebar. Fill in the details below.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <AddMethodForm newMethod={newMethod} setNewMethod={setNewMethod} onSubmit={handleSubmit} />
+                        </DialogContent>
+                      </Dialog>
+                    )}
                   </nav>
                 </SheetHeader>
               </SheetContent>

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/app/context/AuthContext';
 // Removed unused imports for manual state/input
 // import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
@@ -29,8 +31,9 @@ const loginFormSchema = z.object({
 });
 
 const LoginPage = () => {
-  // const [email, setEmail] = useState(''); // Removed manual state
-  // const [password, setPassword] = useState(''); // Removed manual state
+  const router = useRouter();
+  const { login } = useAuth();
+  const [error, setError] = useState<string | null>(null);
 
   // Initialize the form with react-hook-form and zodResolver
   const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -61,14 +64,15 @@ const LoginPage = () => {
       // Handle successful login
       console.log('Login successful', data);
       
-      // Redirect to home page after successful login
+      // Store the token and update auth state
+      login(data.token);
+      
+      // Redirect to home page
+      router.push('/');
       
     } catch (error) {
       console.error('Login error:', error);
-      // TODO: Add your error handling logic here
-      // For example:
-      // - Show error message to user
-      // - Update form state
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred');
     }
   }
 
@@ -76,7 +80,13 @@ const LoginPage = () => {
     <main className="flex flex-col items-center justify-center h-full bg-gray-100 dark:bg-gray-900 p-2">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
         <h1 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-6">Login</h1>
-        {/* Replace form element with Form component from react-hook-form */}
+        
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            {error}
+          </div>
+        )}
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Email Field */}

@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { store } from '@/lib/store';
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { usePathname } from 'next/navigation';
+import { AuthProvider } from './context/AuthContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,22 +37,24 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <Provider store={store}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <SidebarProvider>
-              {isNotesPage && <AppSidebar />}
-              <div className={`flex-1 w-full flex flex-col ${isNotesPage ? '' : 'ml-0'}`}>
-                <Navbar />
-                <main className="flex-1 overflow-y-auto">
-                  {children}
-                </main>
-              </div>
-            </SidebarProvider>
-          </ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <SidebarProvider>
+                {isNotesPage && <AppSidebar />}
+                <div className={`flex-1 w-full flex flex-col ${isNotesPage ? '' : 'ml-0'}`}>
+                  <Navbar />
+                  <main className="flex-1 overflow-y-auto">
+                    {children}
+                  </main>
+                </div>
+              </SidebarProvider>
+            </ThemeProvider>
+          </AuthProvider>
         </Provider>
       </body>
     </html>

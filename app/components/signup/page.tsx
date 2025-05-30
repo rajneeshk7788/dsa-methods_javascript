@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Dialog,
   DialogContent,
@@ -44,6 +45,7 @@ const signupFormSchema = z.object({
 });
 
 const SignupPage = () => {
+  const router = useRouter();
   const [isVerificationDialogOpen, setIsVerificationDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -84,6 +86,11 @@ const SignupPage = () => {
       const data = await response.json();
       console.log("Success:", data);
       setIsVerificationDialogOpen(true);
+      
+      // Redirect to login page after successful signup
+      setTimeout(() => {
+        router.push('/components/login');
+      }, 2000); // Redirect after 2 seconds to show the success message
     } catch (error) {
       console.error("Signup error:", error);
       setError(error instanceof Error ? error.message : "An unexpected error occurred");
@@ -233,9 +240,9 @@ const SignupPage = () => {
         <Dialog open={isVerificationDialogOpen} onOpenChange={setIsVerificationDialogOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Email Verification</DialogTitle>
+              <DialogTitle>Signup Successful!</DialogTitle>
               <DialogDescription>
-                Please check your email for a verification link.
+                Your account has been created successfully. You will be redirected to the login page.
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
